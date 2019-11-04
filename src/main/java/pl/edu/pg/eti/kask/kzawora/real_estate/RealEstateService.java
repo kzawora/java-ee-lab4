@@ -55,7 +55,7 @@ public class RealEstateService {
         em.persist(re5);
         em.persist(re6);
         em.persist(re7);
-/*
+
         re1.setDevelopers(List.of(d1));
         re2.setDevelopers(List.of(d2));
         re3.setDevelopers(List.of(d1));
@@ -64,8 +64,15 @@ public class RealEstateService {
         re6.setDevelopers(List.of(d1));
         re7.setDevelopers(List.of(d2));
 
- */
+        re1.setHousingCommunity(null);
+        re2.setHousingCommunity(null);
+        re3.setHousingCommunity(null);
+        re4.setHousingCommunity(null);
+        re5.setHousingCommunity(null);
+        re6.setHousingCommunity(null);
+        re7.setHousingCommunity(null);
 
+        /*
         List<User> users = userService.findAllUsers();
       //  re1.setUsers(users);
       //  re2.setUsers(users);
@@ -73,7 +80,7 @@ public class RealEstateService {
             u.setRealEstates(List.of(re1));
             userService.saveUser(u);
         }
-
+*/
     }
 
     public synchronized List<Developer> findAllDevelopers() {
@@ -82,6 +89,10 @@ public class RealEstateService {
 
     public synchronized List<RealEstate> findAllRealEstates() {
         return em.createNamedQuery(RealEstate.Queries.FIND_ALL, RealEstate.class).getResultList();
+    }
+
+    public synchronized List<RealEstate> findByDeveloper(Developer d) {
+        return em.createNamedQuery(RealEstate.Queries.FIND_BY_DEVELOPER, RealEstate.class).setParameter("developer", d).getResultList();
     }
 
     public synchronized List<RealEstate> findAllRealEstates(int offset, int limit) {
@@ -95,7 +106,6 @@ public class RealEstateService {
         return em.createNamedQuery(RealEstate.Queries.COUNT, Long.class).getSingleResult();
     }
 
-
     public synchronized RealEstate findRealEstate(int id) {
         return em.find(RealEstate.class, id);
     }
@@ -103,6 +113,7 @@ public class RealEstateService {
     public synchronized Developer findDeveloper(int id) {
         return em.find(Developer.class, id);
     }
+
     @Transactional
     private synchronized void saveDeveloper(Developer developer) {
         if (developer.getId() == null) {

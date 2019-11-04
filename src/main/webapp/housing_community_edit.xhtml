@@ -13,7 +13,7 @@
             <h:panelGrid columns="3">
                 <h:outputLabel value="Name:" for="name"/>
                 <h:inputText id="name" value="#{housingCommunityEdit.housingCommunity.name}"/>
-                <h:message for="name"/>
+                <h:messages for="name"/>
 
                 <h:outputLabel value="Manager:" for="managers"/>
                 <h:selectOneListbox id="managers" collectionType="java.util.ArrayList" value="#{housingCommunityEdit.housingCommunity.manager}">
@@ -21,23 +21,23 @@
                                    itemLabel="#{manager.name}"/>
                 </h:selectOneListbox>
 
-                <h:message for="managers"/>
+                <h:messages for="managers"/>
 
                 <h:outputLabel value="Address:" for="address"/>
                 <h:inputText id="address" value="#{housingCommunityEdit.housingCommunity.address.address}"/>
-                <h:message for="address"/>
+                <h:messages for="address"/>
 
                 <h:outputLabel value="Postal Code:" for="postalCode"/>
                 <h:inputText id="postalCode" value="#{housingCommunityEdit.housingCommunity.address.postalCode}"/>
-                <h:message for="postalCode"/>
+                <h:messages for="postalCode"/>
 
                 <h:outputLabel value="City:" for="city"/>
                 <h:inputText id="city" value="#{housingCommunityEdit.housingCommunity.address.city}"/>
-                <h:message for="city"/>
+                <h:messages for="city"/>
 
                 <h:outputLabel value="NIP:" for="nip"/>
                 <h:inputText id="nip" value="#{housingCommunityEdit.housingCommunity.nip}"/>
-                <h:message for="nip"/>
+                <h:messages for="nip"/>
 
                 <h:outputLabel value="Managed real estates:" for="realEstates"/>
                 <h:selectManyListbox id="realEstates" collectionType="java.util.ArrayList" value="#{housingCommunityEdit.selectedRealEstates}">
@@ -45,7 +45,7 @@
                     <f:selectItems value="#{realEstateList.realEstates}" var="realEstate" itemValue="#{realEstate}"
                                    itemLabel="#{realEstate.address.address} #{realEstate.housingCommunity.name}"/>
                 </h:selectManyListbox>
-                <h:message for="realEstates"/>
+                <h:messages for="realEstates"/>
 
                 <h:commandButton value="Save" action="#{housingCommunityEdit.saveHousingCommunity}"/>
                 <h:messages/>

@@ -31,7 +31,6 @@ public class HousingCommunityList {
     }
 
     public String removeHousingCommunity(HousingCommunity housingCommunity) {
-        List<RealEstate> realEstatesList = new ArrayList<>();
         for (RealEstate realEstate : service.getRealEstateService().findAllRealEstates()) {
             try {
                 if (realEstate.getHousingCommunity().equals(housingCommunity)) {
@@ -42,6 +41,11 @@ public class HousingCommunityList {
             }
         }
         service.removeHousingCommunity(housingCommunity);
+        return "housing_community_list?faces-redirect=true";
+    }
+
+    public String init() {
+        service.init();
         return "housing_community_list?faces-redirect=true";
     }
 }

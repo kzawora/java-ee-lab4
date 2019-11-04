@@ -17,4 +17,8 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    <context-param>
+        <param-name>javax.faces.validator.ENABLE_VALIDATE_WHOLE_BEAN</param-name>
+        <param-value>true</param-value>
+    </context-param>
 </web-app>

@@ -16,13 +16,13 @@ import java.util.List;
 
 @NamedQuery(name = Developer.Queries.FIND_ALL, query = "select d from Developer d")
 @NamedQuery(name = Developer.Queries.COUNT, query = "select count(d) from Developer d")
-@NamedQuery(name = Developer.Queries.FIND_BY_BOOK, query = "select d from Developer d where :realEstate member of d.realEstates")
+@NamedQuery(name = Developer.Queries.FIND_BY_REALESTATE, query = "select d from Developer d where :realEstate member of d.realEstates")
 public class Developer implements Serializable {
 
     public static class Queries {
         public static final String FIND_ALL = "Developer.findAll";
         public static final String COUNT = "Developer.count";
-        public static final String FIND_BY_BOOK = "Developer.findByBook";
+        public static final String FIND_BY_REALESTATE = "Developer.findByRealEstate";
     }
 
     @Id

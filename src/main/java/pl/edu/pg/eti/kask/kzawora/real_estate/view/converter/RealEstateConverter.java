@@ -32,7 +32,7 @@ public class RealEstateConverter implements Converter<RealEstate> {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, RealEstate value) {
-        if (value == null) {
+        if (value == null || value.getId() == null) {
             return "";
         }
         return Integer.toString(value.getId());

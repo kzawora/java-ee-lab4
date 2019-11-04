@@ -9,19 +9,20 @@ import pl.edu.pg.eti.kask.kzawora.real_estate.model.Address;
 import pl.edu.pg.eti.kask.kzawora.real_estate.model.RealEstate;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ApplicationScoped
+@Stateless
 public class HousingCommunityService {
-
-    private final List<HousingCommunity> housingCommunities = new ArrayList<>();
-
-    private final List<Manager> managers = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager em;
 
     @Getter
     @Setter
@@ -31,15 +32,25 @@ public class HousingCommunityService {
     public HousingCommunityService() {
     }
 
-    @PostConstruct
+    @Transactional
     public void init() {
-        managers.add(new Manager(1, "Mieszkaniex", "mieszkaniex@mieszkaniex.com", "123456789"));
-        managers.add(new Manager(2, "Zwieszkaniex", "zwieszkaniex@zwieszkaniex.com", "012345678"));
-        managers.add(new Manager(3, "Poważny zarządca", "powazny@zarzadca.aniolki.pl", "114545367"));
-        housingCommunities.add(new HousingCommunity(1, "WM Myśliwska 24", managers.get(0), new Address("Myśliwska 24 A B C D E", "80-126", "Gdańsk"), "123456789"));
-        housingCommunities.add(new HousingCommunity(2, "WM Myśliwska 26", managers.get(1), new Address("Myśliwska 26 A B C D", "80-126", "Gdańsk"), "123456780"));
-        housingCommunities.add(new HousingCommunity(3, "WM Jabłoniowa 18", managers.get(2), new Address("Jabłoniowa 18 A B C", "80-204", "Gdańsk"), "123456781"));
-        housingCommunities.add(new HousingCommunity(4, "WM Jabłoniowa 20", managers.get(2), new Address("Jabłoniowa 20 A B C D E", "80-204", "Gdańsk"), "123456781"));
+        List<HousingCommunity> housingCommunities = new ArrayList<>();
+        List<Manager> managers = new ArrayList<>();
+        managers.add(new Manager("Mieszkaniex", "mieszkaniex@mieszkaniex.com", "123456789"));
+        managers.add(new Manager("Zwieszkaniex", "zwieszkaniex@zwieszkaniex.com", "012345678"));
+        managers.add(new Manager("Poważny zarządca", "powazny@zarzadca.aniolki.pl", "114545367"));
+        housingCommunities.add(new HousingCommunity("WM Myśliwska 24", new Address("Myśliwska 24 A B C D E", "80-126", "Gdańsk"), "123456789"));
+        housingCommunities.add(new HousingCommunity("WM Myśliwska 26", new Address("Myśliwska 26 A B C D", "80-126", "Gdańsk"), "123456780"));
+        housingCommunities.add(new HousingCommunity("WM Jabłoniowa 18", new Address("Jabłoniowa 18 A B C", "80-204", "Gdańsk"), "123456781"));
+        housingCommunities.add(new HousingCommunity("WM Jabłoniowa 20", new Address("Jabłoniowa 20 A B C D E", "80-204", "Gdańsk"), "123456781"));
+        for (Manager m : managers) {
+            em.persist(m);
+        }
+        for (HousingCommunity hc : housingCommunities) {
+            em.persist(hc);
+            hc.setManager(managers.get(0));
+        }
+        /*
         List<RealEstate> realEstates = realEstateService.findAllRealEstates();
         int counter = 0;
         for (RealEstate realEstate : realEstates) {
@@ -47,73 +58,47 @@ public class HousingCommunityService {
             counter++;
             realEstateService.saveRealEstate(realEstate);
         }
+ */
     }
 
     public synchronized List<Manager> findAllManagers() {
-        return managers.stream()
-                .map(Manager::new)
-                .collect(Collectors.toList());
+        return em.createNamedQuery(Manager.Queries.FIND_ALL, Manager.class).getResultList();
     }
 
     public synchronized List<HousingCommunity> findAllHousingCommunities() {
-        return housingCommunities.stream()
-                .map(HousingCommunity::new)
-                .collect(Collectors.toList());
+        return em.createNamedQuery(HousingCommunity.Queries.FIND_ALL, HousingCommunity.class).getResultList();
     }
 
     public synchronized List<HousingCommunity> findAllHousingCommunities(int offset, int limit) {
-        return housingCommunities.stream()
-                .skip(offset)
-                .limit(limit)
-                .map(HousingCommunity::new)
-                .collect(Collectors.toList());
+        return em.createNamedQuery(HousingCommunity.Queries.FIND_ALL, HousingCommunity.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
     }
 
-    public synchronized int countHousingCommunities() {
-        return housingCommunities.size();
+    public synchronized long countHousingCommunities() {
+        return em.createNamedQuery(HousingCommunity.Queries.COUNT, Long.class).getSingleResult();
     }
 
     public synchronized HousingCommunity findHousingCommunity(int id) {
-        return housingCommunities.stream()
-                .filter(housingCommunity -> housingCommunity.getId() == id)
-                .findFirst().map(HousingCommunity::new)
-                .orElse(null);
+        return em.find(HousingCommunity.class, id);
     }
 
     public synchronized Manager findManager(int id) {
-        return managers.stream()
-                .filter(manager -> manager.getId() == id)
-                .findFirst().map(Manager::new)
-                .orElse(null);
+        return em.find(Manager.class, id);
     }
 
+    @Transactional
     public synchronized void saveHousingCommunity(HousingCommunity housingCommunity) {
-        for (RealEstate realEstate : realEstateService.findAllRealEstates()) {
-            if (realEstate != null && realEstate.getHousingCommunity() != null && realEstate.getHousingCommunity().getId() == housingCommunity.getId()) {
-                realEstate.setHousingCommunity(housingCommunity);
-                realEstateService.saveRealEstate(realEstate);
-            }
-        }
-        if (housingCommunity.getId() != 0) {
-            housingCommunities.removeIf(housingCommunity1 -> housingCommunity1.getId() == housingCommunity.getId());
-            housingCommunities.add(new HousingCommunity(housingCommunity));
+        if (housingCommunity.getId() == null) {
+            em.persist(housingCommunity);
         } else {
-            housingCommunity.setId(housingCommunities.stream()
-                    .mapToInt(HousingCommunity::getId)
-                    .max()
-                    .orElse(0) + 1);
-            housingCommunities.add(new HousingCommunity(housingCommunity));
+            em.merge(housingCommunity);
         }
-        housingCommunities.sort(Comparator.comparingInt(HousingCommunity::getId));
     }
 
+    @Transactional
     public void removeHousingCommunity(HousingCommunity housingCommunity) {
-        for (RealEstate realEstate : realEstateService.findAllRealEstates()) {
-            if (realEstate != null && realEstate.getHousingCommunity() != null && realEstate.getHousingCommunity().getId() == housingCommunity.getId()) {
-                realEstate.setHousingCommunity(null);
-                realEstateService.saveRealEstate(realEstate);
-            }
-        }
-        housingCommunities.removeIf(housingCommunity1 -> housingCommunity1.equals(housingCommunity));
+        em.remove(em.merge(housingCommunity));
     }
 }

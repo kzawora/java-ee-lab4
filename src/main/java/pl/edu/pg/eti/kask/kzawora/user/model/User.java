@@ -43,7 +43,7 @@ public class User implements Serializable {
     @Setter
     private String password;
 
-
+/*
     @JsonbTransient
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "realEstates_users",
@@ -52,6 +52,8 @@ public class User implements Serializable {
     @Getter
     @Setter
     private List<RealEstate> realEstates = new ArrayList<>();
+*/
+    public List<RealEstate> getRealEstates() { return null; }
 
     public User(User user) {
         this.personalData = user.personalData;

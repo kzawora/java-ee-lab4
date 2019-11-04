@@ -13,34 +13,34 @@
             <h:panelGrid columns="3">
                 <h:outputLabel value="Address:" for="address"/>
                 <h:inputText id="address" value="#{realEstateEdit.realEstate.address.address}"/>
-                <h:message for="address"/>
+                <h:messages for="address"/>
 
                 <h:outputLabel value="Postal Code:" for="postalCode"/>
                 <h:inputText id="postalCode" value="#{realEstateEdit.realEstate.address.postalCode}"/>
-                <h:message for="postalCode"/>
+                <h:messages for="postalCode"/>
 
                 <h:outputLabel value="City:" for="city"/>
                 <h:inputText id="city" value="#{realEstateEdit.realEstate.address.city}"/>
-                <h:message for="city"/>
+                <h:messages for="city"/>
 
                 <h:outputLabel value="Living space:" for="livingSpace"/>
                 <h:inputText id="livingSpace" value="#{realEstateEdit.realEstate.livingSpace}">
                     <f:convertNumber/>
                 </h:inputText>
-                <h:message for="livingSpace"/>
+                <h:messages for="livingSpace"/>
 
                 <h:outputLabel value="Build date:" for="date"/>
                 <h:inputText id="date" value="#{realEstateEdit.realEstate.buildDate}">
                     <f:convertDateTime type="localDate" pattern="yyyy-MM-dd"/>
                 </h:inputText>
-                <h:message for="date"/>
+                <h:messages for="date"/>
 
                 <h:outputLabel value="Developers:" for="developers"/>
                 <h:selectManyListbox id="developers" collectionType="java.util.ArrayList" value="#{realEstateEdit.realEstate.developers}">
                     <f:selectItems value="#{realEstateEdit.availableDevelopers}" var="developer" itemValue="#{developer}"
                                    itemLabel="#{developer.name}"/>
                 </h:selectManyListbox>
-                <h:message for="developers"/>
+                <h:messages for="developers"/>
 
                 <h:outputLabel value="Housing community:" for="communities"/>
                 <h:selectOneListbox id="communities" collectionType="java.util.ArrayList" value="#{realEstateEdit.realEstate.housingCommunity}">
@@ -48,7 +48,7 @@
                     <f:selectItems value="#{housingCommunityList.housingCommunities}" var="community" itemValue="#{community}"
                                    itemLabel="#{community.name}"/>
                 </h:selectOneListbox>
-                <h:message for="communities"/>
+                <h:messages for="communities"/>
 
                 <h:commandButton value="Save" action="#{realEstateEdit.saveRealEstate}"/>
                 <h:messages/>

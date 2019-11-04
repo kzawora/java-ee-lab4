@@ -4,7 +4,6 @@ import pl.edu.pg.eti.kask.kzawora.user.model.PersonalData;
 import pl.edu.pg.eti.kask.kzawora.user.model.User;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;

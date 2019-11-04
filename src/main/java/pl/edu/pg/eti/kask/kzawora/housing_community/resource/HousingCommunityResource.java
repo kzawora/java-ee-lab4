@@ -65,7 +65,7 @@ public class HousingCommunityResource {
                         .build())
         );
 
-        int size = service.countHousingCommunities();
+        int size = (int) service.countHousingCommunities();
 
         EmbeddedResource.EmbeddedResourceBuilder<List<HousingCommunity>> builder = EmbeddedResource.<List<HousingCommunity>>builder()
                 .embedded("housingCommunities", housingCommunities);

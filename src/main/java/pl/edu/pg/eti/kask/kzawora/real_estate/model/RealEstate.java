@@ -3,14 +3,16 @@ package pl.edu.pg.eti.kask.kzawora.real_estate.model;
 import lombok.*;
 import pl.edu.pg.eti.kask.kzawora.housing_community.model.HousingCommunity;
 import pl.edu.pg.eti.kask.kzawora.resource.model.Link;
-import pl.edu.pg.eti.kask.kzawora.user.model.User;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,11 +24,14 @@ import java.util.Map;
 @Table(name = "realEstates")
 @NamedQuery(name = RealEstate.Queries.FIND_ALL, query = "select re from RealEstate re")
 @NamedQuery(name = RealEstate.Queries.COUNT, query = "select count(re) from RealEstate re")
+@NamedQuery(name = RealEstate.Queries.FIND_BY_DEVELOPER, query = "select re from RealEstate re where :developer member of re.developers")
 public class RealEstate implements Serializable {
 
     public static class Queries {
         public static final String FIND_ALL = "RealEstate.findAll";
         public static final String COUNT = "RealEstate.count";
+        public static final String FIND_BY_DEVELOPER = "RealEstate.findByDeveloper";
+
     }
 
     @Id
@@ -40,10 +45,14 @@ public class RealEstate implements Serializable {
 
     @Getter
     @Setter
-    private double livingSpace;
+
+    @NotNull
+    private Double livingSpace;
 
     @Getter
     @Setter
+    @PastOrPresent
+    @NotNull
     private LocalDate buildDate;
 
     @JsonbTransient
@@ -55,28 +64,19 @@ public class RealEstate implements Serializable {
     @Setter
     private List<Developer> developers;
 
-    public List<Developer> getDevelopers() {
-        return null;
-    }
-
-    //    @Getter
-//    @Setter
-//    @ManyToOne
-//    @JoinColumn(name = "housingCommunity")
-//    private HousingCommunity housingCommunity = new HousingCommunity();
-    public void setHousingCommunity(HousingCommunity hc) {
-    }
-
-    public HousingCommunity getHousingCommunity() {
-        return null;
-    }
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "realEstates")
     @Getter
     @Setter
-    @JsonbTransient
-    private List<User> users = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "housingCommunity")
+    private HousingCommunity housingCommunity = new HousingCommunity();
 
+    /*
+        @ManyToMany(fetch = FetchType.LAZY, mappedBy = "realEstates")
+        @Getter
+        @Setter
+        @JsonbTransient
+        private List<User> users = new ArrayList<>();
+    */
     public RealEstate(RealEstate realEstate) {
         this.address = realEstate.address;
         this.livingSpace = realEstate.livingSpace;

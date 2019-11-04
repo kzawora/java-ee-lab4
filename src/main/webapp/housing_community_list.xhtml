@@ -42,6 +42,9 @@
         </h:dataTable>
 
         <h:button value="Create" outcome="housing_community_edit.xhtml"/>
+        <h:form>
+            <h:commandButton action="#{housingCommunityList.init}" value="Init"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>

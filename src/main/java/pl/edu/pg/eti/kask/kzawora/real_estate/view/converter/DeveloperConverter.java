@@ -31,7 +31,7 @@ public class DeveloperConverter implements Converter<Developer> {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Developer value) {
-        if (value == null) {
+        if (value == null || value.getId() == null) {
             return "";
         }
         return Integer.toString(value.getId());

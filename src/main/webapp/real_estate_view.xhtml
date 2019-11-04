@@ -44,7 +44,17 @@
                 </h:column>
             </h:dataTable>
 
-
+            <h:outputLabel value="Other real estates by these developers:" for="developer2"/>
+            <h:dataTable id="developer2" value="#{realEstateView.realEstate.developers}" var="developer2">
+                <h:column>
+                    <h:outputLabel value="${developer2.name}"/>
+                    <h:dataTable value="#{realEstateList.findByDeveloper(developer2)}" id="dev3" var="developer3">
+                        <h:column>
+                            <h:outputText value="#{developer3.address.address}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:column>
+            </h:dataTable>
         </h:panelGrid>
 
         <h:button value="Back" outcome="real_estate_list.xhtml"/>
