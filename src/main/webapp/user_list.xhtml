@@ -25,6 +25,14 @@
             </h:column>
 
             <h:column>
+                <h:dataTable id="realEstate" value="#{user.realEstates}" var="realEstate">
+                    <h:column>
+                        <h:outputText value="#{realEstate.address.address}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:column>
+
+            <h:column>
                 <h:button value="Show" outcome="user_view.xhtml">
                     <f:param name="user" value="#{user.id}"/>
                 </h:button>
@@ -40,14 +48,6 @@
                 <h:form>
                     <h:commandButton value="Delete" action="#{userList.removeUser(user)}"/>
                 </h:form>
-            </h:column>
-
-            <h:column>
-                <h:dataTable id="realEstate" value="#{user.realEstates}" var="realEstate">
-                    <h:column>
-                        <h:outputText value="- #{realEstate.address.address}"/>
-                    </h:column>
-                </h:dataTable>
             </h:column>
 
         </h:dataTable>

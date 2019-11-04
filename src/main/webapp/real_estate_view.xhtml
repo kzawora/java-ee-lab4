@@ -37,10 +37,10 @@
             <h:outputLabel value="Housing community:" for="community"/>
             <h:outputText id="community" value="#{realEstateView.realEstate.housingCommunity.name}"/>
 
-            <h:outputLabel value="Users:" for="user"/>
-            <h:dataTable id="user" value="#{realEstate.users}" var="user">
+            <h:outputLabel value="Owned by:" for="user"/>
+            <h:dataTable id="user" value="#{realEstateView.realEstate.users}" var="user">
                 <h:column>
-                    <h:outputText value="- #{user.name}"/>
+                    <h:outputText value="#{user.personalData.name} #{user.personalData.surname}"/>
                 </h:column>
             </h:dataTable>
 

@@ -31,6 +31,15 @@
                 <h:inputText id="password" value="#{userEdit.user.password}"/>
                 <h:messages for="password"/>
 
+                <h:outputLabel value="Owned real estates:" for="realEstates"/>
+                <h:selectManyListbox id="realEstates" collectionType="java.util.ArrayList" value="#{userEdit.selectedRealEstates}">
+                    <f:selectItem itemValue="#{null}" itemLabel="--select--" />
+                    <f:selectItems value="#{realEstateList.realEstates}" var="realEstate" itemValue="#{realEstate}"
+                                   itemLabel="#{realEstate.address.address} #{realEstate.housingCommunity.name}"/>
+                </h:selectManyListbox>
+                <h:messages for="realEstates"/>
+
+
                 <h:commandButton value="Save" action="#{userEdit.saveUser}"/>
                 <h:messages/>
             </h:panelGrid>

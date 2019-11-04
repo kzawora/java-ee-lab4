@@ -9,10 +9,7 @@ import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"realEstates", "links"})
@@ -34,7 +31,7 @@ public class User implements Serializable {
 
     @Getter
     @Setter
-    private PersonalData personalData;
+    private PersonalData personalData = new PersonalData();
 
     @Getter
     @Setter
@@ -46,7 +43,7 @@ public class User implements Serializable {
     @NotBlank
     private String password;
 
-/*
+
     @JsonbTransient
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "realEstates_users",
@@ -54,9 +51,7 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "user"))
     @Getter
     @Setter
-    private List<RealEstate> realEstates = new ArrayList<>();
-*/
-    public List<RealEstate> getRealEstates() { return null; }
+    private Set<RealEstate> realEstates = new HashSet<>();
 
     public User(User user) {
         this.personalData = user.personalData;

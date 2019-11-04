@@ -26,6 +26,15 @@
             <h:outputLabel value="Password:" for="password"/>
             <h:outputText id="password" value="#{userView.user.password}"/>
 
+            <h:outputLabel value="Owned real estates:" for="realEstate"/>
+            <h:column>
+                <h:dataTable id="realEstate" value="#{userView.user.realEstates}" var="realEstate">
+                    <h:column>
+                        <h:outputText value="#{realEstate.address.address}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:column>
+
         </h:panelGrid>
         <h:button value="Back" outcome="user_list.xhtml"/>
     </ui:define>

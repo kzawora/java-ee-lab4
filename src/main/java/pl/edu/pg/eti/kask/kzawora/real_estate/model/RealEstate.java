@@ -3,19 +3,16 @@ package pl.edu.pg.eti.kask.kzawora.real_estate.model;
 import lombok.*;
 import pl.edu.pg.eti.kask.kzawora.housing_community.model.HousingCommunity;
 import pl.edu.pg.eti.kask.kzawora.resource.model.Link;
+import pl.edu.pg.eti.kask.kzawora.user.model.User;
 
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = {"users", "developers", "links"})
@@ -70,13 +67,14 @@ public class RealEstate implements Serializable {
     @JoinColumn(name = "housingCommunity")
     private HousingCommunity housingCommunity = new HousingCommunity();
 
-    /*
-        @ManyToMany(fetch = FetchType.LAZY, mappedBy = "realEstates")
-        @Getter
-        @Setter
-        @JsonbTransient
-        private List<User> users = new ArrayList<>();
-    */
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "realEstates")
+    @Getter
+    @Setter
+    @JsonbTransient
+    private Set<User> users = new HashSet<>();
+
+
     public RealEstate(RealEstate realEstate) {
         this.address = realEstate.address;
         this.livingSpace = realEstate.livingSpace;

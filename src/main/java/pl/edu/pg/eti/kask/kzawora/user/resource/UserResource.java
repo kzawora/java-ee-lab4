@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.ArrayList;
 import java.util.List;
 
 import static pl.edu.pg.eti.kask.kzawora.resource.UriHelper.pagedUri;
@@ -110,7 +111,8 @@ public class UserResource {
     public Response getRealEstates(@PathParam("userId") int userId) {
         User user = service.findUser(userId);
         if (user != null) {
-            List<RealEstate> realEstates = user.getRealEstates();
+            List<RealEstate> realEstates = new ArrayList<RealEstate>();
+            realEstates.addAll(user.getRealEstates());
 
             realEstates.forEach(realEstate -> realEstate.getLinks().put(
                     "self",
