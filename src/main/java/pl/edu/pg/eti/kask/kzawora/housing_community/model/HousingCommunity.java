@@ -9,6 +9,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class HousingCommunity implements Serializable {
     @Getter
     @Setter
     @NotBlank
-    @Size(min=9, max=9)
+    @Pattern(regexp="\\d{9}")
     private String nip;
 
     public HousingCommunity(HousingCommunity housingCommunity) {

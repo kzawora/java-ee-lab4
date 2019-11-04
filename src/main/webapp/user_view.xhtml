@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="user" value="#{userView.user}" required="true"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGrid columns="2">
+
+            <h:outputLabel value="Name:" for="name"/>
+            <h:outputText id="name" value="#{userView.user.personalData.name}"/>
+
+            <h:outputLabel value="Surname:" for="surname"/>
+            <h:outputText id="surname" value="#{userView.user.personalData.surname}"/>
+
+            <h:outputLabel value="Pesel:" for="pesel"/>
+            <h:outputText id="pesel" value="#{userView.user.personalData.pesel}"/>
+
+            <h:outputLabel value="Email:" for="email"/>
+            <h:outputText id="email" value="#{userView.user.email}"/>
+
+            <h:outputLabel value="Password:" for="password"/>
+            <h:outputText id="password" value="#{userView.user.password}"/>
+
+        </h:panelGrid>
+        <h:button value="Back" outcome="user_list.xhtml"/>
+    </ui:define>
+
+</ui:composition>

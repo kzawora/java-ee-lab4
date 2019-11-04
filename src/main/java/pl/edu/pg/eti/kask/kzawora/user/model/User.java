@@ -7,6 +7,7 @@ import pl.edu.pg.eti.kask.kzawora.resource.model.Link;
 import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +38,12 @@ public class User implements Serializable {
 
     @Getter
     @Setter
+    @NotBlank
     private String email;
 
     @Getter
     @Setter
+    @NotBlank
     private String password;
 
 /*
