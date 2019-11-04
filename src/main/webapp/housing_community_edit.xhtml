@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="housingCommunity" value="#{housingCommunityEdit.housingCommunity}" required="false"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel value="Name:" for="name"/>
+                <h:inputText id="name" value="#{housingCommunityEdit.housingCommunity.name}"/>
+                <h:message for="name"/>
+
+                <h:outputLabel value="Manager:" for="managers"/>
+                <h:selectOneListbox id="managers" collectionType="java.util.ArrayList" value="#{housingCommunityEdit.housingCommunity.manager}">
+                    <f:selectItems value="#{housingCommunityEdit.availableManagers}" var="manager" itemValue="#{manager}"
+                                   itemLabel="#{manager.name}"/>
+                </h:selectOneListbox>
+
+                <h:message for="managers"/>
+
+                <h:outputLabel value="Address:" for="address"/>
+                <h:inputText id="address" value="#{housingCommunityEdit.housingCommunity.address.address}"/>
+                <h:message for="address"/>
+
+                <h:outputLabel value="Postal Code:" for="postalCode"/>
+                <h:inputText id="postalCode" value="#{housingCommunityEdit.housingCommunity.address.postalCode}"/>
+                <h:message for="postalCode"/>
+
+                <h:outputLabel value="City:" for="city"/>
+                <h:inputText id="city" value="#{housingCommunityEdit.housingCommunity.address.city}"/>
+                <h:message for="city"/>
+
+                <h:outputLabel value="NIP:" for="nip"/>
+                <h:inputText id="nip" value="#{housingCommunityEdit.housingCommunity.nip}"/>
+                <h:message for="nip"/>
+
+                <h:outputLabel value="Managed real estates:" for="realEstates"/>
+                <h:selectManyListbox id="realEstates" collectionType="java.util.ArrayList" value="#{housingCommunityEdit.selectedRealEstates}">
+                    <f:selectItem itemValue="#{null}" itemLabel="--select--" />
+                    <f:selectItems value="#{realEstateList.realEstates}" var="realEstate" itemValue="#{realEstate}"
+                                   itemLabel="#{realEstate.address.address} #{realEstate.housingCommunity.name}"/>
+                </h:selectManyListbox>
+                <h:message for="realEstates"/>
+
+                <h:commandButton value="Save" action="#{housingCommunityEdit.saveHousingCommunity}"/>
+                <h:messages/>
+
+            </h:panelGrid>
+        </h:form>
+
+        <h:button value="Back" outcome="housing_community_list.xhtml"/>
+    </ui:define>
+
+</ui:composition>

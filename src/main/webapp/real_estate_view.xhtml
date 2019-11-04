@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="realEstate" value="#{realEstateView.realEstate}" required="true"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGrid columns="2">
+            <h:outputLabel value="Address:" for="address"/>
+            <h:dataTable id="address" value="#{realEstateView.realEstate.address}" var="address">
+                <h:column>
+                    <h:column>
+                        <h:outputText value="#{address.address}"/><br></br>
+                        <h:outputText value="#{address.postalCode} "/>
+                        <h:outputText value="#{address.city} "/>
+                    </h:column>
+                </h:column>
+            </h:dataTable>
+
+            <h:outputLabel value="Living space:" for="livingSpace"/>
+            <h:outputText id="livingSpace" value="#{realEstateView.realEstate.livingSpace} m^2"/>
+
+            <h:outputLabel value="Build date:" for="date"/>
+            <h:outputText id="date" value="#{realEstateView.realEstate.buildDate}"/>
+
+            <h:outputLabel value="Developers:" for="developer"/>
+            <h:dataTable id="developer" value="#{realEstateView.realEstate.developers}" var="developer">
+                <h:column>
+                    <h:outputText value="#{developer.name}"/>
+                </h:column>
+            </h:dataTable>
+
+            <h:outputLabel value="Housing community:" for="community"/>
+            <h:outputText id="community" value="#{realEstateView.realEstate.housingCommunity.name}"/>
+
+            <h:outputLabel value="Users:" for="user"/>
+            <h:dataTable id="user" value="#{realEstate.users}" var="user">
+                <h:column>
+                    <h:outputText value="- #{user.name}"/>
+                </h:column>
+            </h:dataTable>
+
+
+        </h:panelGrid>
+
+        <h:button value="Back" outcome="real_estate_list.xhtml"/>
+    </ui:define>
+
+</ui:composition>
