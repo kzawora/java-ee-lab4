@@ -20,6 +20,7 @@ public class UserService {
 
     @Transactional
     public void init() {
+        /*
         List<User> users = new ArrayList<>();
         users.add(new User(new PersonalData("Nowak", "Jan", "1211111111"), "jan1.nowak@nowak.com", "raz1dwatrzy"));
         users.add(new User(new PersonalData("Kowalski", "Janek", "4111111111"), "jan2.nowak@nowak.com", "razdwa2trzy"));
@@ -32,7 +33,7 @@ public class UserService {
         for (User u : users) {
             em.persist(u);
         }
-
+*/
     }
 
     public synchronized List<User> findAllUsers() {

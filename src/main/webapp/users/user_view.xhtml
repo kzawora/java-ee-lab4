@@ -11,6 +11,9 @@
     <ui:define name="content">
         <h:panelGrid columns="2">
 
+            <h:outputLabel value="Login:" for="login"/>
+            <h:outputText id="login" value="#{userView.user.login}"/>
+
             <h:outputLabel value="Name:" for="name"/>
             <h:outputText id="name" value="#{userView.user.personalData.name}"/>
 
@@ -31,6 +34,15 @@
                 <h:dataTable id="realEstate" value="#{userView.user.realEstates}" var="realEstate">
                     <h:column>
                         <h:outputText value="#{realEstate.address.address}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:column>
+
+            <h:outputLabel value="Role accesses:" for="accesses"/>
+            <h:column>
+                <h:dataTable id="accesses" value="#{userView.user.roles}" var="access">
+                    <h:column>
+                        <h:outputText value="#{access}"/>
                     </h:column>
                 </h:dataTable>
             </h:column>

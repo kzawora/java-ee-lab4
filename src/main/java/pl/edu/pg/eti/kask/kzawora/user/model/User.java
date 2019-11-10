@@ -19,10 +19,17 @@ import java.util.*;
 @Table(name = "users")
 @NamedQuery(name = User.Queries.FIND_ALL, query = "select u from User u")
 @NamedQuery(name = User.Queries.COUNT, query = "select count(u) from User u")
+@Builder
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User implements Serializable {
     public static class Queries {
         public static final String FIND_ALL = "User.findAll";
         public static final String COUNT = "User.count";
+    }
+
+    public static class Roles {
+        public static final String ADMIN = "ADMIN";
+        public static final String USER = "USER";
     }
 
     @Id
@@ -32,18 +39,23 @@ public class User implements Serializable {
 
     @Getter
     @Setter
+    @Column(nullable = false, unique = true)
+    private String login;
+
+    @Getter
+    @Setter
     private PersonalData personalData = new PersonalData();
 
     @Getter
     @Setter
-    @NotBlank(message="Email must not be blank.")
-    @Size(min=1, max=50, message = "Email must be between 1 and 50 characters long.")
+    @NotBlank(message = "Email must not be blank.")
+    @Size(min = 1, max = 50, message = "Email must be between 1 and 50 characters long.")
     private String email;
 
     @Getter
     @Setter
-    @NotBlank(message="Password must not be blank.")
-    @Size(min=8, max=50, message = "Email must be between 1 and 50 characters long.")
+    @NotBlank(message = "Password must not be blank.")
+//    @Size(min = 1, max = 50, message = "Password must be between 1 and 50 characters long.")
     private String password;
 
 
@@ -70,4 +82,12 @@ public class User implements Serializable {
     @Getter
     @Setter
     private Map<String, Link> links = new HashMap<>();
+
+    @Getter
+    @Setter
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "users_roles", joinColumns = @JoinColumn(name = "user"))
+    @Column(name = "role")
+    @Singular
+    private List<String> roles;
 }

@@ -46,9 +46,4 @@ public class RealEstateList {
     public List<RealEstate> findByDeveloper(Developer d) {
         return service.findByDeveloper(d);
     }
-
-    public String init() {
-        service.init();
-        return "real_estate_list?faces-redirect=true";
-    }
 }

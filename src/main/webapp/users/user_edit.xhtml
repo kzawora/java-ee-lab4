@@ -11,6 +11,10 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="3">
+                <h:outputLabel value="Login:" for="login"/>
+                <h:inputText id="login" value="#{userEdit.user.login}"/>
+                <h:messages for="login"/>
+
                 <h:outputLabel value="Name:" for="name"/>
                 <h:inputText id="name" value="#{userEdit.user.personalData.name}"/>
                 <h:messages for="name"/>
@@ -28,7 +32,7 @@
                 <h:messages for="email"/>
 
                 <h:outputLabel value="Password:" for="password"/>
-                <h:inputText id="password" value="#{userEdit.user.password}"/>
+                <h:inputText id="password" value="#{userEdit.unhashedPassword}"/>
                 <h:messages for="password"/>
 
                 <h:outputLabel value="Owned real estates:" for="realEstates"/>
@@ -39,6 +43,12 @@
                 </h:selectManyListbox>
                 <h:messages for="realEstates"/>
 
+                <h:outputLabel value="Role accesses:" for="accesses"/>
+                <h:selectManyListbox id="accesses" collectionType="java.util.ArrayList" value="#{userEdit.user.roles}">
+                    <f:selectItems value="#{userEdit.availableRoles}" var="realEstate" itemValue="#{role}"
+                                   itemLabel="#{role}"/>
+                </h:selectManyListbox>
+                <h:messages for="realEstates"/>
 
                 <h:commandButton value="Save" action="#{userEdit.saveUser}"/>
                 <h:messages/>

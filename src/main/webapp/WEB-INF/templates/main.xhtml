@@ -18,11 +18,14 @@
         <header>
             <h1>Housing community management site</h1>
         </header>
+        <h:form>
+            <h:commandLink action="#{userContext.logout}" rendered="#{request.userPrincipal ne null}">logout #{request.userPrincipal.name}</h:commandLink>
+        </h:form>
         <nav class="navbar">
             <ul>
-                <li><h:link outcome="real_estate_list.xhtml" value="Real Estates"/></li>
-                <li><h:link outcome="housing_community_list.xhtml" value="Housing Communities"/></li>
-                <li><h:link outcome="user_list.xhtml" value="Users"/></li>
+                <li><h:link outcome="/real_estates/real_estate_list.xhtml" value="Real Estates"/></li>
+                <li><h:link outcome="/housing_communities/housing_community_list.xhtml" value="Housing Communities"/></li>
+                <li><h:link outcome="/users/user_list.xhtml" value="Users"/></li>
             </ul>
         </nav>
         <section>
