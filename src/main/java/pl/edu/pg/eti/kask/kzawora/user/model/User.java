@@ -8,6 +8,7 @@ import javax.json.bind.annotation.JsonbProperty;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.*;
 
@@ -35,12 +36,14 @@ public class User implements Serializable {
 
     @Getter
     @Setter
-    @NotBlank
+    @NotBlank(message="Email must not be blank.")
+    @Size(min=1, max=50, message = "Email must be between 1 and 50 characters long.")
     private String email;
 
     @Getter
     @Setter
-    @NotBlank
+    @NotBlank(message="Password must not be blank.")
+    @Size(min=8, max=50, message = "Email must be between 1 and 50 characters long.")
     private String password;
 
 
@@ -52,12 +55,6 @@ public class User implements Serializable {
     @Getter
     @Setter
     private Set<RealEstate> realEstates = new HashSet<>();
-
-    public User(User user) {
-        this.personalData = user.personalData;
-        this.email = user.email;
-        this.password = user.password;
-    }
 
     public User(PersonalData personalData, String email, String password) {
         this.personalData = personalData;

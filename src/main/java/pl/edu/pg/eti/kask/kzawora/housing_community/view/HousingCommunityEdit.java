@@ -49,6 +49,7 @@ public class HousingCommunityEdit implements Serializable {
     }
 
     public String saveHousingCommunity() {
+        service.saveHousingCommunity(housingCommunity);
         try {
             for (RealEstate realEstate : selectedRealEstates) {
                 realEstate.setHousingCommunity(housingCommunity);
@@ -56,7 +57,6 @@ public class HousingCommunityEdit implements Serializable {
             }
         } catch (NullPointerException ex) {
         }
-        service.saveHousingCommunity(housingCommunity);
         return "housing_community_list?faces-redirect=true";
     }
 }

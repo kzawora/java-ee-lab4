@@ -12,19 +12,22 @@ import javax.inject.Inject;
 
 @FacesConverter(forClass = HousingCommunity.class, managed = true)
 @Dependent
-public class RealEstateConverter implements Converter<HousingCommunity> {
+public class HousingCommunityConverter implements Converter<HousingCommunity> {
 
     private HousingCommunityService service;
 
     @Inject
-    public RealEstateConverter(HousingCommunityService service) {
+    public HousingCommunityConverter(HousingCommunityService service) {
         this.service = service;
     }
 
     @Override
     public HousingCommunity getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || value.isEmpty()) {
-            return null;
+            HousingCommunity hc = new HousingCommunity();
+            hc.setRealEstates(null);
+            return hc;
+            
         }
         final int id = Integer.parseInt(value);
         return id == 0 ? new HousingCommunity() : service.findHousingCommunity(id);

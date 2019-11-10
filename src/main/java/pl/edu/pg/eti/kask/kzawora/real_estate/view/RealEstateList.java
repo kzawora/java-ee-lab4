@@ -1,5 +1,7 @@
 package pl.edu.pg.eti.kask.kzawora.real_estate.view;
 
+import lombok.Getter;
+import lombok.Setter;
 import pl.edu.pg.eti.kask.kzawora.real_estate.RealEstateService;
 import pl.edu.pg.eti.kask.kzawora.real_estate.model.Developer;
 import pl.edu.pg.eti.kask.kzawora.real_estate.model.RealEstate;
@@ -17,12 +19,19 @@ public class RealEstateList {
 
     private List<RealEstate> realEstates;
 
+    @Getter
+    @Setter
+    private Integer selectedDeveloper;
+
     @Inject
     public RealEstateList(RealEstateService service) {
         this.service = service;
     }
 
     public List<RealEstate> getRealEstates() {
+        if (selectedDeveloper != null) {
+            return service.findByDeveloper(service.findDeveloper(selectedDeveloper));
+        }
         if (realEstates == null) {
             realEstates = service.findAllRealEstates();
         }

@@ -24,7 +24,7 @@ public class ManagerConverter implements Converter<Manager> {
     @Override
     public Manager getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || value.isEmpty()) {
-            return null;
+            return new Manager();
         }
         return service.findManager(Integer.parseInt(value));
     }

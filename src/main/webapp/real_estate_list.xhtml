@@ -5,7 +5,21 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 template="/WEB-INF/templates/main.xhtml">
 
+    <f:metadata>
+        <f:viewParam name="selectedDeveloper" value="#{realEstateList.selectedDeveloper}" required="false"/>
+    </f:metadata>
+
     <ui:define name="content">
+        <h:form>
+            <h:outputLabel value="Filter by developer:" for="selectedDeveloper"/>
+            <h:selectOneMenu id="selectedDeveloper" value="#{realEstateList.selectedDeveloper}">
+                <f:selectItem itemValue="#{null}" itemLabel="none" />
+                <f:selectItems value="#{realEstateEdit.availableDevelopers}" var="developer" itemValue="#{developer.id}"
+                               itemLabel="#{developer.id} #{developer.name}"/>
+            </h:selectOneMenu>
+            <h:commandButton value="Filter" action="real_estate_list.xhtml?faces-redirect=true&amp;includeViewParams=true"/>
+        </h:form>
+
         <h:dataTable value="#{realEstateList.realEstates}" var="realEstate">
             <h:column>
                 <h:outputText value="#{realEstate.id}"/>

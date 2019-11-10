@@ -24,7 +24,7 @@ public class UserConverter implements Converter<User> {
     @Override
     public User getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || value.isEmpty()) {
-            return null;
+            return new User();
         }
         final int id = Integer.parseInt(value);
         return id == 0 ? new User() : service.findUser(id);

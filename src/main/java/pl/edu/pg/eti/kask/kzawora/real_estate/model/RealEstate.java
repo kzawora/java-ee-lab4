@@ -43,13 +43,13 @@ public class RealEstate implements Serializable {
     @Getter
     @Setter
 
-    @NotNull
+    @NotNull(message = "Living space must not be empty")
     private Double livingSpace;
 
     @Getter
     @Setter
-    @PastOrPresent
-    @NotNull
+    @PastOrPresent(message = "Build date must be in the past or present")
+    @NotNull(message = "Build date must not be empty")
     private LocalDate buildDate;
 
     @JsonbTransient

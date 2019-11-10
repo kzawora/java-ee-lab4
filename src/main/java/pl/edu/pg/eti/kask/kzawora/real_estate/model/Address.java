@@ -13,12 +13,12 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Data
 public class Address implements Serializable {
-    @NotBlank
-    @Size(min=2, max=100)
+    @NotBlank(message = "Address must not be blank.")
+    @Size(min=2, max=50, message = "Address length should be between 2 and 50 characters.")
     private String address;
-    @Pattern(regexp="\\d{2}-\\d{3}")
+    @Pattern(regexp="\\d{2}-\\d{3}", message="Postal code must be in 00-000 format.")
     private String postalCode;
-    @NotBlank
-    @Size(min=2, max=100)
+    @NotBlank(message="City must not be blank.")
+    @Size(min=2, max=50, message= "City length should be between 2 and 50 characters.")
     private String city;
 }

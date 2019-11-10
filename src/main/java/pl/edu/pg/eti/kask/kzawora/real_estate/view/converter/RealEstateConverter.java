@@ -24,7 +24,7 @@ public class RealEstateConverter implements Converter<RealEstate> {
     @Override
     public RealEstate getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || value.isEmpty()) {
-            return null;
+            return new RealEstate();
         }
         final int id = Integer.parseInt(value);
         return id == 0 ? new RealEstate() : service.findRealEstate(id);

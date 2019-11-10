@@ -8,16 +8,13 @@ import pl.edu.pg.eti.kask.kzawora.real_estate.RealEstateService;
 import pl.edu.pg.eti.kask.kzawora.real_estate.model.Address;
 import pl.edu.pg.eti.kask.kzawora.real_estate.model.RealEstate;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Stateless
 public class HousingCommunityService {
@@ -50,15 +47,6 @@ public class HousingCommunityService {
             em.persist(hc);
             hc.setManager(managers.get(0));
         }
-        /*
-        List<RealEstate> realEstates = realEstateService.findAllRealEstates();
-        int counter = 0;
-        for (RealEstate realEstate : realEstates) {
-            realEstate.setHousingCommunity(housingCommunities.get(counter % 4));
-            counter++;
-            realEstateService.saveRealEstate(realEstate);
-        }
- */
     }
 
     public synchronized List<Manager> findAllManagers() {
@@ -91,7 +79,10 @@ public class HousingCommunityService {
     @Transactional
     public synchronized void saveHousingCommunity(HousingCommunity housingCommunity) {
         if (housingCommunity.getId() == null) {
+            List<RealEstate> realEstates = housingCommunity.getRealEstates();
+            housingCommunity.setRealEstates(null);
             em.persist(housingCommunity);
+            housingCommunity.setRealEstates(realEstates);
         } else {
             em.merge(housingCommunity);
         }

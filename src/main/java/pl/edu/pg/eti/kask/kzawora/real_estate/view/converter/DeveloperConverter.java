@@ -24,7 +24,7 @@ public class DeveloperConverter implements Converter<Developer> {
     @Override
     public Developer getAsObject(FacesContext context, UIComponent component, String value) {
         if (value == null || value.isEmpty()) {
-            return null;
+            return new Developer();
         }
         return service.findDeveloper(Integer.parseInt(value));
     }

@@ -38,8 +38,8 @@ public class HousingCommunity implements Serializable {
 
     @Getter
     @Setter
-    @NotBlank
-    @Size(min=1, max=100)
+    @NotBlank(message = "Name must not be blank.")
+    @Size(min=1, max=50, message = "Name must be between 1 and 50 characters long.")
     private String name;
 
     @Getter
@@ -61,15 +61,9 @@ public class HousingCommunity implements Serializable {
 
     @Getter
     @Setter
-    @NotBlank
-    @Pattern(regexp="\\d{9}")
+    @NotBlank(message = "NIP must not be blank.")
+    @Pattern(regexp="\\d{9}", message="NIP must be 9 digits long.")
     private String nip;
-
-    public HousingCommunity(HousingCommunity housingCommunity) {
-        this.name = housingCommunity.name;
-        this.address = housingCommunity.address;
-        this.nip = housingCommunity.nip;
-    }
 
     public HousingCommunity(String name, Address address, String nip) {
         this.name = name;

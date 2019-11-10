@@ -40,10 +40,6 @@ public class Developer implements Serializable {
     @JsonbTransient
     private List<RealEstate> realEstates = new ArrayList<>();
 
-    public Developer(Developer developer) {
-        this.name = developer.name;
-    }
-
     public Developer(String name) {
         this.name = name;
     }
