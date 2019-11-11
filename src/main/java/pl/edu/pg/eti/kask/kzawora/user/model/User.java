@@ -32,6 +32,8 @@ public class User implements Serializable {
 
     @Getter
     @Setter
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personaldata_id", referencedColumnName = "id")
     private PersonalData personalData = new PersonalData();
 
     @Getter
@@ -43,7 +45,7 @@ public class User implements Serializable {
     @Getter
     @Setter
     @NotBlank(message="Password must not be blank.")
-    @Size(min=8, max=50, message = "Email must be between 1 and 50 characters long.")
+    @Size(min=8, max=50, message = "Email must be between 8 and 50 characters long.")
     private String password;
 
 
