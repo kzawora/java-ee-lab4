@@ -40,7 +40,7 @@ public class RealEstateList {
 
     public String removeRealEstate(RealEstate realEstate) {
         service.removeRealEstate(realEstate);
-        return "real_estate_list?faces-redirect=true";
+        return "/real_estates/real_estate_list?faces-redirect=true";
     }
 
     public List<RealEstate> findByDeveloper(Developer d) {

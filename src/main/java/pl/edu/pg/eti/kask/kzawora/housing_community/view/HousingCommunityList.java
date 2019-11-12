@@ -7,7 +7,6 @@ import pl.edu.pg.eti.kask.kzawora.real_estate.model.RealEstate;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named
@@ -41,11 +40,6 @@ public class HousingCommunityList {
             }
         }
         service.removeHousingCommunity(housingCommunity);
-        return "housing_community_list?faces-redirect=true";
-    }
-
-    public String init() {
-        service.init();
-        return "housing_community_list?faces-redirect=true";
+        return "/housing_communities/housing_community_list?faces-redirect=true";
     }
 }

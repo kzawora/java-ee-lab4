@@ -36,14 +36,14 @@
                 <h:messages for="date"/>
 
                 <h:outputLabel value="Developers:" for="developers"/>
-                <h:selectManyListbox id="developers" collectionType="java.util.ArrayList" value="#{realEstateEdit.realEstate.developers}">
+                <h:selectManyListbox id="developers" collectionType="java.util.HashSet" value="#{realEstateEdit.realEstate.developers}">
                     <f:selectItems value="#{realEstateEdit.availableDevelopers}" var="developer" itemValue="#{developer}"
                                    itemLabel="#{developer.name}"/>
                 </h:selectManyListbox>
                 <h:messages for="developers"/>
 
                 <h:outputLabel value="Housing community:" for="communities"/>
-                <h:selectOneListbox id="communities" collectionType="java.util.ArrayList" value="#{realEstateEdit.realEstate.housingCommunity}">
+                <h:selectOneListbox id="communities" collectionType="java.util.HashSet" value="#{realEstateEdit.realEstate.housingCommunity}">
                     <f:selectItem itemValue="#{null}" itemLabel="--select--" />
                     <f:selectItems value="#{housingCommunityList.housingCommunities}" var="community" itemValue="#{community}"
                                    itemLabel="#{community.name}"/>

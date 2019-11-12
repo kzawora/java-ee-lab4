@@ -34,10 +34,12 @@ public class Developer implements Serializable {
     @Setter
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "developers")
-    @Getter
-    @Setter
     @JsonbTransient
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "realEstates_developers",
+            joinColumns = @JoinColumn(name = "developer"),
+            inverseJoinColumns = @JoinColumn(name = "realEstate"))
+    @Getter
     private List<RealEstate> realEstates = new ArrayList<>();
 
     public Developer(String name) {

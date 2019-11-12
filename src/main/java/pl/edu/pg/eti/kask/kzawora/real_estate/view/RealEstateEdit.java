@@ -46,6 +46,6 @@ public class RealEstateEdit implements Serializable {
 
     public String saveRealEstate() {
         service.saveRealEstate(realEstate);
-        return "real_estate_list?faces-redirect=true";
+        return "/real_estates/real_estate_list?faces-redirect=true";
     }
 }

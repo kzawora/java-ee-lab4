@@ -18,12 +18,14 @@ import java.util.*;
 @Entity
 @Table(name = "users")
 @NamedQuery(name = User.Queries.FIND_ALL, query = "select u from User u")
+@NamedQuery(name = User.Queries.FIND_BY_NAME, query = "select u from User u where :login = u.login")
 @NamedQuery(name = User.Queries.COUNT, query = "select count(u) from User u")
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User implements Serializable {
     public static class Queries {
         public static final String FIND_ALL = "User.findAll";
+        public static final String FIND_BY_NAME = "User.findByName";
         public static final String COUNT = "User.count";
     }
 
@@ -44,6 +46,8 @@ public class User implements Serializable {
 
     @Getter
     @Setter
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "personaldata_id", referencedColumnName = "id")
     private PersonalData personalData = new PersonalData();
 
     @Getter

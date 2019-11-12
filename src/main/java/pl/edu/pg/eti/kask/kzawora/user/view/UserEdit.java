@@ -74,6 +74,6 @@ public class UserEdit implements Serializable {
         }
         user.setRealEstates(new HashSet<>(selectedRealEstates));
         service.saveUser(user);
-        return "user_list?faces-redirect=true";
+        return "/users/user_list?faces-redirect=true";
     }
 }

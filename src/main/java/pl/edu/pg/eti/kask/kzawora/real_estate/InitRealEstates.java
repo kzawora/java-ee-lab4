@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @ApplicationScoped
 public class InitRealEstates {
@@ -47,13 +47,13 @@ public class InitRealEstates {
         em.persist(re6);
         em.persist(re7);
 
-        re1.setDevelopers(List.of(d1));
-        re2.setDevelopers(List.of(d2));
-        re3.setDevelopers(List.of(d1));
-        re4.setDevelopers(List.of(d2));
-        re5.setDevelopers(List.of(d3));
-        re6.setDevelopers(List.of(d1));
-        re7.setDevelopers(List.of(d2));
+        re1.setDevelopers(Set.of(d1));
+        re2.setDevelopers(Set.of(d2));
+        re3.setDevelopers(Set.of(d1));
+        re4.setDevelopers(Set.of(d2));
+        re5.setDevelopers(Set.of(d3));
+        re6.setDevelopers(Set.of(d1));
+        re7.setDevelopers(Set.of(d2));
 
         re1.setHousingCommunity(null);
         re2.setHousingCommunity(null);

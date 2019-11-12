@@ -57,6 +57,6 @@ public class HousingCommunityEdit implements Serializable {
             }
         } catch (NullPointerException ex) {
         }
-        return "housing_community_list?faces-redirect=true";
+        return "/housing_communities/housing_community_list?faces-redirect=true";
     }
 }

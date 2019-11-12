@@ -14,6 +14,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+import java.util.ArrayList;
 import java.util.List;
 
 import static pl.edu.pg.eti.kask.kzawora.resource.UriHelper.pagedUri;
@@ -166,8 +167,10 @@ public class RealEstateResource {
     public Response getRealEstateDevelopers(@PathParam("realEstateId") int realEstateId) {
         RealEstate realEstate = service.findRealEstate(realEstateId);
         if (realEstate != null) {
+            List<Developer> developers = new ArrayList<>();
+            developers.addAll(realEstate.getDevelopers());
             EmbeddedResource<List<Developer>> embedded = EmbeddedResource.<List<Developer>>builder()
-                    .embedded("developers", realEstate.getDevelopers())
+                    .embedded("developers", developers)
                     .link(
                             "realEstate",
                             Link.builder().href(uri(info, RealEstateResource.class, "getRealEstate",

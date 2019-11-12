@@ -38,35 +38,39 @@ public class InitUsers {
                 .login("admin")
                 .password(sha256("admin"))
                 .email("admin@admin.com")
-                .personalData(new PersonalData())
+                .personalData(new PersonalData("Kowalski", "Jan", "12345678901"))
                 .role(User.Roles.ADMIN)
                 .role(User.Roles.USER)
                 .build();
         User user = User.builder()
                 .login("user")
                 .password(sha256("user"))
-                .personalData(new PersonalData()).email("user@user.com")
+                .personalData(new PersonalData("Kowalsky", "Janek", "12345678901"))
+                .email("user@user.com")
                 .role(User.Roles.USER)
                 .build();
 
         User user1 = User.builder()
                 .login("user1")
                 .password(sha256("user1"))
-                .personalData(new PersonalData()).email("user1@user.com")
+                .personalData(new PersonalData("Kowal", "Yan", "12345678901"))
+                .email("user1@user.com")
                 .role(User.Roles.USER)
                 .build();
 
         User user2 = User.builder()
                 .login("user2")
                 .password(sha256("user2"))
-                .personalData(new PersonalData()).email("user2@user.com")
+                .personalData(new PersonalData("Kovalsky", "Yanek", "12345678901"))
+                .email("user2@user.com")
                 .role(User.Roles.USER)
                 .build();
 
         User user3 = User.builder()
                 .login("user3")
                 .password(sha256("user3"))
-                .personalData(new PersonalData()).email("user3@user.com")
+                .personalData(new PersonalData("Kowalskii", "Marcin", "12345678901"))
+                .email("user3@user.com")
                 .role(User.Roles.USER)
                 .build();
 

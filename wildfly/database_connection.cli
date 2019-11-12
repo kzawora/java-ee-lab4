@@ -1,0 +1,11 @@
+if (outcome != success) of /subsystem=datasources/data-source=realestates-jaas:read-resource
+    data-source add \
+        --name=realestates-jaas \
+        --driver-name=h2 \
+        --driver-class=org.h2.Driver \
+        --connection-url=jdbc:h2:mem:realestates-jaas \
+        --jndi-name=java:/realestates-jaas \
+        --user-name=sa \
+        --password=sa \
+        data-source enable --name=realestates-jaas
+end-if

@@ -38,6 +38,8 @@ public class RealEstate implements Serializable {
 
     @Getter
     @Setter
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address = new Address();
 
     @Getter
@@ -58,8 +60,15 @@ public class RealEstate implements Serializable {
             joinColumns = @JoinColumn(name = "realEstate"),
             inverseJoinColumns = @JoinColumn(name = "developer"))
     @Getter
-    @Setter
-    private List<Developer> developers;
+    private Set<Developer> developers;
+
+    public void setDevelopers(Set<Developer> developers) {
+        this.developers = developers;
+    }
+
+    public void setDevelopers(List<Developer> developers) {
+        this.developers = new HashSet<>(developers);
+    }
 
     @Getter
     @Setter
@@ -68,10 +77,12 @@ public class RealEstate implements Serializable {
     private HousingCommunity housingCommunity = new HousingCommunity();
 
 
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "realEstates")
-    @Getter
-    @Setter
     @JsonbTransient
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "realEstates_developers",
+            joinColumns = @JoinColumn(name = "realEstate"),
+            inverseJoinColumns = @JoinColumn(name = "developer"))
+    @Getter
     private Set<User> users = new HashSet<>();
 
 

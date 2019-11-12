@@ -57,6 +57,8 @@ public class HousingCommunity implements Serializable {
 
     @Getter
     @Setter
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address = new Address();
 
     @Getter
